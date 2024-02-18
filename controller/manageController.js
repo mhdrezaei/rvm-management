@@ -1,7 +1,6 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const md5 = require("md5");
 const Manager = require("../models/manager");
 
 exports.userAuthentication = async (req, res, next) => {};
@@ -9,7 +8,7 @@ exports.userAuthentication = async (req, res, next) => {};
 // @desc register new users
 // @route /api/users
 // @access public
-const registerUser = async (req, res) => {
+const registerManage = async (req, res) => {
   const { name, family, isAdmin, phoneNumber, email, password } = req.body;
 
   // Validation
@@ -35,7 +34,6 @@ const registerUser = async (req, res) => {
     email,
     phoneNumber,
     isAdmin,
-    createAt,
     password: hashedPassword,
   });
 
@@ -55,7 +53,7 @@ const registerUser = async (req, res) => {
 // @desc login a users
 // @route /api/users/login
 // @access public
-const loginUser = async (req, res) => {
+const loginManage = async (req, res) => {
   const { email, password } = req.body;
 
   // Validation
@@ -71,12 +69,12 @@ const loginUser = async (req, res) => {
   }
 
   // Check user and passwords match
-  if (userExists && (await bcrypt.compare(password, user.password))) {
+  if (userExists && (await bcrypt.compare(password, userExists.password))) {
     res.status(200).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      token: generateToken(user._id),
+      _id: userExists._id,
+      name: userExists.name,
+      email: userExists.email,
+      token: generateToken(userExists._id),
     });
   } else {
     res.status(401).json({ message: "Invalid credentials!" });
@@ -104,7 +102,7 @@ const generateToken = (id) => {
 };
 
 module.exports = {
-  registerUser,
-  loginUser,
+  registerManage,
+  loginManage,
   getMe,
 };

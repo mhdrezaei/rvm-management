@@ -4,7 +4,7 @@ const { getMe , registerManage, loginManage } = require("../controller/manageCon
 
 const { protect } = require("../middleware/authMiddleware");
 
-router.post("/manage/new", registerManage);
+router.route("/manage/new").post(registerManage);
 router.route("/manage/login").post(loginManage);
 router.get("/manage/me", protect, getMe);
 

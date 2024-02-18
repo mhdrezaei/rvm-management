@@ -7,6 +7,8 @@ const databaseConnection = require("./config/databaseConnection");
 const PORT = process.env.PORT;
 databaseConnection();
 
+app.use(express.json());
+
 const user = require("./routes/manager");
 const status = require("./routes/status");
 const summary = require("./routes/sunmmary");
