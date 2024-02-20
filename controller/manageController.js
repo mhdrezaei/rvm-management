@@ -66,10 +66,7 @@ const loginManage = async (req, res) => {
 
   if (!userExists) {
     res.status(400).json({ message: "User not found!" });
-  }
-
-  // Check user and passwords match
-  if (userExists && (await bcrypt.compare(password, userExists.password))) {
+  }else if(userExists && (await bcrypt.compare(password, userExists.password))) {
     res.status(200).json({
       _id: userExists._id,
       name: userExists.name,
