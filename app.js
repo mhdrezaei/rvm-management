@@ -1,11 +1,19 @@
 const express = require("express");
 const app = express();
+const cors = require("cors")
 const dotenv = require("dotenv");
 dotenv.config({ path: "./config/config.env" });
 
 const databaseConnection = require("./config/databaseConnection");
 const PORT = process.env.PORT;
 databaseConnection();
+
+app.use(
+  cors({
+    origin: "*",
+    credentials: false,
+  })
+);
 
 app.use(express.json());
 
