@@ -5,7 +5,7 @@ exports.allTransactions = async (req, res, next) => {
         console.log( "Number of transactions:", count );
         res.status(200).json({
             success: true,
-            count: count.count()
+            count: count
           });
     
 }
