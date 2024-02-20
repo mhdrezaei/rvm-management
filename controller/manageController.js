@@ -58,6 +58,7 @@ const loginManage = async (req, res) => {
 
   // Validation
   if (!email || !password) {
+    console.log("not exist")
     res.status(400).json({ message: "Please include all fields" });
   }
 
@@ -67,6 +68,7 @@ const loginManage = async (req, res) => {
   if (!userExists) {
     res.status(400).json({ message: "User not found!" });
   }else if(userExists && (await bcrypt.compare(password, userExists.password))) {
+    console.log("success")
     res.status(200).json({
       _id: userExists._id,
       name: userExists.name,
@@ -74,6 +76,7 @@ const loginManage = async (req, res) => {
       token: generateToken(userExists._id),
     });
   } else {
+    console.log("failed")
     res.status(401).json({ message: "Invalid credentials!" });
     // throw new Error("Invalid credentials");
   }
