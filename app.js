@@ -6,17 +6,18 @@ dotenv.config({ path: "./config/config.env" });
 
 const databaseConnection = require("./config/databaseConnection");
 const PORT = process.env.PORT;
-databaseConnection();
 
-app.use(
-  cors({
-    origin: "*",
-    credentials: false,
-  })
-);
+// cors
+const corsOptions = {
+  origin: "*",
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
+// connect to database
+  databaseConnection();
 const user = require("./routes/manager");
 const status = require("./routes/status");
 const summary = require("./routes/sunmmary");
