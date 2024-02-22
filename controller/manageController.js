@@ -73,6 +73,7 @@ const loginManage = async (req, res) => {
       _id: userExists._id,
       name: userExists.name,
       email: userExists.email,
+      isAdmin : userExists.isAdmin,
       token: generateToken(userExists._id),
     });
   } else {
